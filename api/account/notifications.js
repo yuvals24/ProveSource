@@ -23,4 +23,14 @@ router.get('/:accountId', (req, res) => {
     })
 })
 
+//deletes notifications that contain color text and are only from specified account
+router.delete('/:accountId/:color', (req, res) => {
+    const accountId = req.params.accountId;
+    const color = req.params.color;
+    Notifications.find({ accountId, color }, function (err, response) {
+        response.forEach(notifications => notifications.remove())
+        return res.send({ message: 'success' })
+    })
+})
+
 module.exports = router
