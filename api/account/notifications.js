@@ -10,4 +10,17 @@ router.post('/', async (req, res) => {
     return res.send({ message: 'success' });
 })
 
+//returns the notifications for given accountId
+router.get('/:accountId', (req, res) => {
+    const accountId = req.params.accountId;
+    Notifications.find({ accountId }, function (err, response) {
+        if (response.length === 0) {
+            return res.json({ "error": "account does not have notifications" })
+        }
+        else {
+            return res.send(response)
+        }
+    })
+})
+
 module.exports = router
